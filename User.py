@@ -1,6 +1,5 @@
 # this class represent the user calls in the social netwerk implement the design
 from __future__ import annotations
-from Post  import  post
 
 class User:
     def __init__(self, name: str, password: str):
@@ -28,7 +27,7 @@ class User:
             user.__followers -= 1
             print(self.__name + " unfollowed " + user.__name)
 
-    def publish_post(self, post_type: str,*args):
+    def publish_post(self, post_type: str, *args):
         if self.__is_logged:
             return Factory.create_post(post_type, *args)
 

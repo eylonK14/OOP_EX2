@@ -1,4 +1,6 @@
 from Post import Post
+
+
 class TextPost(Post):
     def __init__(self, posted_by: User, *args):
         super().__init__(posted_by)
@@ -7,4 +9,3 @@ class TextPost(Post):
     def __str__(self):
         print(self.posted_by.get_name() + "published a post:")
         print("\"{text}\"".format(text=self.text))
-

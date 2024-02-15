@@ -12,13 +12,14 @@ class SalePost(Post):
 
     def __str__(self):
         print(self.posted_by.get_name() + "posted a product for sale:")
-        if self.is_available:
+        if not self.is_available:
             print("Sold!", end=' ')
         print(self.description + ", price: " + self.price + ", pickup from: " + location)
 
     def discount(self, precentage: float, password: str) -> None:
         if (password == self.posted_by.get_pass() and self.is_available and self.posted_by.logged()):
             self.price -= (self.price * precentage) / 100
+            print("Discount on "+ self.posted_by.get_name()+ " product! the new price is: " + self.price)
 
     def sold(self, password: str):
         if (password == self.posted_by.get_pass() and self.posted_by.logged()):
