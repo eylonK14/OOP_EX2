@@ -2,7 +2,7 @@ from Post import Post
 
 
 class TextPost(Post):
-    def __init__(self, posted_by: User, *args):
+    def __init__(self, posted_by: str, *args):
         super().__init__(posted_by)
         self.text = args[0]
 

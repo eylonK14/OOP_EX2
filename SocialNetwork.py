@@ -1,5 +1,5 @@
 from __future__ import annotations
-
+from User import User
 import importlib
 
 importlib.import_module('User')

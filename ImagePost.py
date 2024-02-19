@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 class ImagePost(Post):
-    def __init__(self, posted_by: User, *args):
+    def __init__(self, posted_by: str, *args):
         super().__init__(posted_by)
         self.path = args[0]
 
