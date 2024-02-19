@@ -1,6 +1,8 @@
 from __future__ import annotations
-from User import User
-from Post import Post
+
+import importlib
+
+importlib.import_module('User')
 
 
 class SocialNetwork:
@@ -18,27 +20,28 @@ class SocialNetwork:
         if self.__is_init:
             return
         self.__name = name
-        self.__users = []
+        self.__users: dict[str, User] = {}
 
         self.__is_init = True
         print(f"The social network {self.__name} was created!")
 
     def __str__(self):
         print(f"{self.__name} social network:")
-        for user in self.__users:
+        for user in self.__users.values():
             print(user)
 
     def sign_up(self, name: str, password: str) -> User:
-        if not len(password) in range(4, 9) or self.__users.__contains__():  # TODO
+        if not len(password) in range(4, 9) or not self.__users.keys().__contains__(name):
             user = User(name, password)
+            self.__users[name] = user
             return user
 
-    def log_in(self, user: User):
-        if not user.logged():
-            user.set_logged(True)
-            print(user.get_name() + " connected")
+    def log_in(self, username: str, password: str) -> None:
+        if not self.__users[username].logged() and self.__users[username].get_pass() == password:
+            self.__users[username].set_logged(True)
+            print(self.__users[username].get_name() + " connected")
 
-    def log_out(self, user: User):
-        if user.logged():
-            user.set_logged(False)
-            print(user.get_name() + " disconnected")
+    def log_out(self, username: str):
+        if self.__users[username].logged():
+            self.__users[username].set_logged(False)
+            print(self.__users[username].get_name() + " disconnected")

@@ -1,5 +1,7 @@
+from matplotlib import image as mpimg
 from Post import Post
 from User import User
+import matplotlib.pyplot as plt
 
 
 class ImagePost(Post):
@@ -12,6 +14,6 @@ class ImagePost(Post):
 
     def display(self) -> None:
         if self.posted_by.logged():
-            file = mpimg.imreadpath
+            file = mpimg.imread(self.path)
             imgplot = plt.imshow(self.path)
             plt.show()

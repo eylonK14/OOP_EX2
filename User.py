@@ -1,7 +1,10 @@
-# this class represent the user calls in the social netwerk implement the design
+# this class represent the user calls in the social network implement the design
 from __future__ import annotations
+from Factory import Factory
+
 
 class User:
+
     def __init__(self, name: str, password: str):
         self.__following = set
         self.__notifications = []
@@ -13,7 +16,8 @@ class User:
 
     def __str__(self):
         print(
-            "User name: " + self.__name + ", Number of posts: " + self.__num_of_post + ", Number of followers: " + self.__followers)
+            "User name: " + self.__name + ", Number of posts: " + self.__num_of_posts +
+            ", Number of followers: " + self.__followers)
 
     def follow(self, user: User) -> None:
         if user not in self.__following and user.__is_logged:  # if the user isn't a follower add him
@@ -22,7 +26,7 @@ class User:
             print(self.__name + " started following " + user.__name)
 
     def unfollow(self, user: User) -> None:
-        if self.__following and self.__is_logged:  # if the set isnt empty delete the user
+        if self.__following and self.__is_logged:  # if the set isn't empty delete the user
             self.__following.remove(user)
             user.__followers -= 1
             print(self.__name + " unfollowed " + user.__name)
@@ -34,8 +38,8 @@ class User:
     def print_notifications(self) -> None:  # print all the notifications
         if self.__is_logged:
             print(self.__name + "'s notifications:")
-            for notif in self.notifications:
-                print(notif)
+            for notify in self.__notifications:
+                print(notify)
 
     def add_notification(self, notification: str) -> None:
         self.__notifications += notification
@@ -46,8 +50,8 @@ class User:
     def get_pass(self) -> str:
         return self.__password
 
-    def logged(self) -> str:
+    def logged(self) -> bool:
         return self.__is_logged
 
-    def set_logged(self, state : bool) -> None:
+    def set_logged(self, state: bool) -> None:
         self.__is_logged = state
