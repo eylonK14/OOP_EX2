@@ -1,13 +1,14 @@
 # this class represent the user calls in the social network implement the design
 from __future__ import annotations
-from Factory import Factory
+
+from Factory import create_post
 
 
 class User:
 
     def __init__(self, name: str, password: str):
-        self.__following = set
-        self.__notifications = []
+        self.__following = set()
+        self.__notifications = set()
         self.__name = name
         self.__password = password
         self.__followers = 0
@@ -15,9 +16,9 @@ class User:
         self.__is_logged = True
 
     def __str__(self):
-        print(
-            "User name: " + self.__name + ", Number of posts: " + self.__num_of_posts +
-            ", Number of followers: " + self.__followers)
+        return ("User name: " + self.__name + ", Number of posts: " + str(self.__num_of_posts) + (", Number of "
+                                                                                                  "followers: ") +
+                str(self.__followers))
 
     def follow(self, user: User) -> None:
         if user not in self.__following and user.__is_logged:  # if the user isn't a follower add him
@@ -33,7 +34,8 @@ class User:
 
     def publish_post(self, post_type: str, *args):
         if self.__is_logged:
-            return Factory.create_post(post_type, *args)
+            self.__num_of_posts += 1
+            return create_post(post_type, self, *args)
 
     def print_notifications(self) -> None:  # print all the notifications
         if self.__is_logged:
@@ -42,7 +44,7 @@ class User:
                 print(notify)
 
     def add_notification(self, notification: str) -> None:
-        self.__notifications += notification
+        self.__notifications.add(notification)
 
     def get_name(self) -> str:
         return self.__name

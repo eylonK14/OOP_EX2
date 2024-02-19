@@ -1,19 +1,35 @@
-from matplotlib import image as mpimg
-from Post import Post
-from User import User
+from __future__ import annotations
 import matplotlib.pyplot as plt
+from matplotlib import image as mpimg
+
+from abc import ABC, abstractmethod
+from typing import TYPE_CHECKING
+from Post import Post
+
+from PIL import Image
+
+if TYPE_CHECKING:
+    from User import User
 
 
 class ImagePost(Post):
-    def __init__(self, posted_by: str, *args):
+    def __init__(self, posted_by: User, path: str):
         super().__init__(posted_by)
-        self.path = args[0]
+        self.path = path
 
     def __str__(self):
-        print(self.posted_by.get_name() + "posted a picture")
+        return self.posted_by.get_name() + " posted a picture\n"
 
-    def display(self) -> None:
+    def display(self) -> None:  # this func display the image
         if self.posted_by.logged():
-            file = mpimg.imread(self.path)
-            imgplot = plt.imshow(self.path)
-            plt.show()
+            image = Image.open(self.path)
+            image.show()
+
+    def like(self, user: User):
+        super().like(user)
+
+    def comment(self, user: User, comment: str):
+        super().comment(user, comment)
+
+
+
