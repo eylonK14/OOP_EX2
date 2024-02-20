@@ -24,6 +24,7 @@ class ImagePost(Post):
         if self.posted_by.logged():
             image = Image.open(self.path)
             image.show()
+            print("Shows picture")
 
     def like(self, user: User):
         super().like(user)

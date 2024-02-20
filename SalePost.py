@@ -19,7 +19,9 @@ class SalePost(Post):
         to_print = self.posted_by.get_name() + " posted a product for sale:\n"
         if not self.is_available:
             to_print += "Sold! "
-        to_print += self.description + " , price: " + str(self.price) + ", pickup from: " + self.location
+        else:
+            to_print += "For sale! "
+        to_print += self.description + ", price: " + str(self.price) + ", pickup from: " + self.location + "\n"
         return to_print
 
     def discount(self, percentage: float, password: str) -> None:

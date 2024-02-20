@@ -10,7 +10,6 @@ if TYPE_CHECKING:
 
 
 def create_post(post_type: str, *args):
-    print(post_type)
     posts = {"Text": TextPost,
              "Image": ImagePost,
              "Sale": SalePost}

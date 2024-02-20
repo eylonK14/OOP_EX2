@@ -18,19 +18,20 @@ class Post(ABC):
 
     @abstractmethod
     def like(self, user: User):
-        if user not in self.liked_by and user.logged():
+        if user not in self.liked_by and user.logged() and self.posted_by.get_name() != user.get_name():
             self.liked_by.add(user)  # add the user who liked to the set
             self.likes += 1  # increase the likes by 1
             print(
-                "notification to " + self.posted_by.get_name() + " : " + user.get_name() + " liked your post")
-        self.posted_by.add_notification(user.get_name() + " liked your post")
+                "notification to " + self.posted_by.get_name() + ": " + user.get_name() + " liked your post")
+            self.posted_by.add_notification(user.get_name() + " liked your post")
 
     @abstractmethod
     def comment(self, user: User, comment: str):
-        if user.logged():
+        if user.logged() and self.posted_by.get_name() != user.get_name():
             self.comments += comment
             print(
-                "notification to " + self.posted_by.get_name() + " : " + user.get_name()
+                "notification to " + self.posted_by.get_name() + ": " + user.get_name()
                 + " commented on your post: " + comment)
             self.posted_by.add_notification(user.get_name() + " commented on your post")
-        self.posted_by.add_notification(user.get_name() + " commented on your post")
+        else:
+            self.posted_by.add_notification(user.get_name() + " commented on your post")

@@ -25,10 +25,11 @@ class SocialNetwork:
         self.__is_init = True
         print(f"The social network {self.__name} was created!")
 
-    def __str__(self):
+    def __str__(self) -> str:
         print(f"{self.__name} social network:")
         for user in self.__users.values():
             print(user)
+        return ""
 
     def sign_up(self, name: str, password: str) -> User:
         if not len(password) in range(4, 9) or not self.__users.keys().__contains__(name):

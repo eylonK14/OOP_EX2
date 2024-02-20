@@ -13,7 +13,7 @@ class TextPost(Post):
         self.text = text  # the text
 
     def __str__(self):
-        return self.posted_by.get_name() + " published a post: \n" + "\"" + str(self.text) + "\"\n"
+        return self.posted_by.get_name() + " published a post:\n" + "\"" + str(self.text) + "\"\n"
 
     def like(self, user: User):
         super().like(user)
