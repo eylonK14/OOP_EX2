@@ -1,7 +1,7 @@
 # this class represent the user calls in the social network implement the design
 from __future__ import annotations
-from collections import OrderedDict
 from Factory import create_post
+from NotificationHandler import notify
 
 
 class User:
@@ -21,7 +21,8 @@ class User:
                 str(len(self.__followers)))
 
     def follow(self, user: User) -> None:
-        if user not in self.__following and self.__is_logged and self.get_name() != user.get_name():  # if the user isn't a follower add him
+        if user not in self.__following and self.__is_logged and self.get_name() != user.get_name():
+            # if the user isn't a follower add him
             self.__following.add(user)
             user.__followers.add(self)
             print(self.__name + " started following " + user.__name)
@@ -33,20 +34,18 @@ class User:
             print(self.__name + " unfollowed " + user.__name)
 
     def publish_post(self, post_type: str, *args):
-        if self.__is_logged:
-            self.__num_of_posts += 1
+        if self.__is_logged: # only if user is logged
+            self.__num_of_posts += 1 # increase post by 1
             p = create_post(post_type, self, *args)
-            for user in self.__followers:
-                user.__notifications.append(f"{self.__name} has a new post")
+            notify(self) # notify
             print(p)
-
             return p
 
     def print_notifications(self) -> None:  # print all the notifications
         if self.__is_logged:
             print(self.__name + "'s notifications:")
-            for notify in self.__notifications:
-                print(notify)
+            for notif in self.__notifications:
+                print(notif)
 
     def add_notification(self, notification: str) -> None:
         self.__notifications.append(notification)
@@ -62,3 +61,6 @@ class User:
 
     def set_logged(self, state: bool) -> None:
         self.__is_logged = state
+
+    def get_followers(self) -> set[User]:
+        return self.__followers

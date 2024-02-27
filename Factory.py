@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     from User import User
 
 
+# this function implements the factory design pattern by creating the post for each kind of them
 def create_post(post_type: str, *args):
     posts = {"Text": TextPost,
              "Image": ImagePost,
